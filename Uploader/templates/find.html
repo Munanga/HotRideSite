@@ -1,0 +1,27 @@
+{% extends 'base.html' %}
+
+{% block title %}Find{% endblock %}
+
+
+{% block body %}
+
+    <h2>Find a ride by name bro!!</h2>
+
+    <form action="{% url 'app:find' %}" method="get">
+        <input type="text" name="q"><br>
+        <input type="submit" value="find">
+    </form>
+
+    {% if query %}
+
+        {% for results in queryset %}
+            <b>Name:</b>{{results.name}}<br>
+            <b>Brand:</b>{{results.brand}}<br>
+            <b>Price:</b>{{results.price}}<br>
+            <b>Year:</b>{{results.year}}<br>
+            <img src="{{MEDIA_URL}}{{results.image}}" alt="awesome car here" width="250" height="200"><br>
+        {% endfor %}
+
+    {% endif %}
+
+{% endblock %}

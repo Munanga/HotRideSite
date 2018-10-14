@@ -1,0 +1,23 @@
+{% extends 'base.html' %}
+
+{% block title %}Home{% endblock %}
+
+
+{% block body %}
+
+    <h2>The following are the ride(s) we have.</h2>
+
+    {% if object_list.count == 0 %}
+        <p>Nothing to display yet.</p>
+    {% else %}
+        {% for rides in object_list %}
+            <img src="{{MEDIA_URL}}{{rides.image}}" alt="awesome car here" height="200" width="250"><br>
+            <b>Name:</b>{{rides.name}}<br>
+            <b>Brand:</b>{{rides.brand}}<br>
+            <b>Price:</b>{{rides.price}}<br>
+            <b>Year:</b>{{rides.year}}<br>
+        {% endfor%}
+    {% endif%}
+
+
+{% endblock %}
