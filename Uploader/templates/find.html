@@ -14,13 +14,19 @@
 
     {% if query %}
 
-        {% for results in queryset %}
-            <b>Name:</b>{{results.name}}<br>
-            <b>Brand:</b>{{results.brand}}<br>
-            <b>Price:</b>{{results.price}}<br>
-            <b>Year:</b>{{results.year}}<br>
-            <img src="{{MEDIA_URL}}{{results.image}}" alt="awesome car here" width="250" height="200"><br>
-        {% endfor %}
+        {% if queryset.count == 0 %}
+                <p>Sorry no results found for "{{query}}"</p>
+        {% else %}
+
+            {% for results in queryset %}
+                <b>Name:</b>{{results.name}}<br>
+                <b>Brand:</b>{{results.brand}}<br>
+                <b>Price:</b>{{results.price}}<br>
+                <b>Year:</b>{{results.year}}<br>
+                <img src="{{MEDIA_URL}}{{results.image}}" alt="awesome car here" width="250" height="200"><br>
+            {% endfor %}
+
+        {% endif %}
 
     {% endif %}
 

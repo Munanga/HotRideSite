@@ -2,7 +2,7 @@ from django.shortcuts import render
 from django.views.generic import ListView,CreateView,UpdateView,DeleteView
 from core.models import Car
 from django.db.models import Q
-from django.urls import reverse_lazy
+from django.urls import reverse
 from core.forms import CarForm
 from django.shortcuts import get_object_or_404
 
@@ -12,6 +12,7 @@ from django.shortcuts import get_object_or_404
 
 class Home(ListView):
     model = Car
+    queryset = Car.objects.order_by('price')
     template_name = 'index.html'
 
 
@@ -23,6 +24,7 @@ class Upload(CreateView):
 def search_ride(request):
     con = {}
     query = []
+    no_results = 0
     if request.method == "GET":
         query = request.GET.get('q')
         if query:
@@ -36,8 +38,7 @@ def search_ride(request):
 
 
 class Update(UpdateView):
-    #model = Car
-    template_name = 'upload.html'
+    template_name = 'update.html'
     form_class = CarForm
 
     def get_object(self):
@@ -46,9 +47,13 @@ class Update(UpdateView):
 
 
 class Delete(DeleteView):
-    model = Car
+    #model = Car
     template_name = 'delete.html'
-    success_url = reverse_lazy('home')
 
+    def get_object(self):
+        id_ = self.kwargs.get("id")
+        return get_object_or_404(Car, id=id_)
 
+    def get_success_url(self):
+        return reverse('app:home')
 

@@ -8,7 +8,7 @@ urlpatterns = [
     path('upload/', Upload.as_view(),name='upload'),
     path('find/', search_ride,name='find'),
     path('<int:id>/update/', Update.as_view(),name='update'),
-    path('delete/', Delete.as_view(),name='delete'),
+    path('<int:id>/delete/', Delete.as_view(),name='delete'),
 ]
 
 
